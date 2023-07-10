@@ -118,6 +118,7 @@
               icon="fa-solid fa-trash-can"
               flat
               round
+              @click="deleteReport(props.row)"
               color="negative"
               dense
             ></q-btn>
@@ -128,7 +129,7 @@
   </q-page>
 </template>
 <script lang="ts" setup>
-import { QTableColumn } from 'quasar';
+import { QTableColumn, useQuasar } from 'quasar';
 import { Category } from 'src/models/category/category.model';
 import { JasperReport } from 'src/models/report/report.model';
 import { useCategory } from 'src/services/category/category.hook';
@@ -136,7 +137,7 @@ import { useReport } from 'src/services/report/report.hook';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const { columns, findAll } = useReport();
+const { columns, findAll, remove } = useReport();
 const categoryHook = useCategory();
 
 const columnsReport = ref<QTableColumn[]>([]);
@@ -144,6 +145,7 @@ const reports = ref<JasperReport[]>([]);
 const router = useRouter();
 const route = useRoute();
 const categories = ref<Category[]>([]);
+const $q = useQuasar();
 
 const expanded = ref(true);
 
@@ -195,5 +197,19 @@ const categoryFilterFn = (
       categories.value = items;
     });
   });
+};
+
+const deleteReport = (category: JasperReport) => {
+  $q.dialog({
+    title: 'Atenção',
+    message: `Deseja deletar o relatório ${category.name}?`,
+    ok: { label: 'Sim', flat: true },
+    cancel: { label: 'Não', flat: true },
+  }).onOk(async () => {
+    await remove(category.id as number);
+    search();
+  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  //.onCancel(() => {});
 };
 </script>

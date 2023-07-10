@@ -6,9 +6,9 @@
           <q-item-section avatar>
             <q-icon name="fa-solid fa-database" />
           </q-item-section>
-          <q-item-section> Conexão de Dados </q-item-section>
+          <q-item-section> Fonte de Dados </q-item-section>
           <q-tooltip anchor="bottom right" self="top middle">
-            Conexão de Dados
+            Fonte de Dados
           </q-tooltip>
         </q-item>
 
@@ -39,6 +39,16 @@
             Gerar Relatório
           </q-tooltip>
         </q-item>
+
+        <q-item clickable v-ripple target="_blank" :href="API_DOC_URL">
+          <q-item-section avatar>
+            <q-icon name="fa-solid fa-code" />
+          </q-item-section>
+          <q-item-section>Para Desenvolvedores</q-item-section>
+          <q-tooltip anchor="bottom right" self="top middle">
+            Para Desenvolvedores
+          </q-tooltip>
+        </q-item>
       </q-list>
     </div>
     <div class="botton">
@@ -61,7 +71,7 @@
 </template>
 <script lang="ts" setup>
 import { defineProps, toRefs, defineEmits } from 'vue';
-
+import { API_DOC_URL } from '../env/env';
 const props = defineProps({
   miniState: Boolean,
 });

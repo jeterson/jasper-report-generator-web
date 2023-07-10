@@ -21,8 +21,8 @@
           <td>
             <q-badge
               :color="subreport.reportAvailable ? 'positive' : 'negative'"
-              >{{ subreport.reportAvailable ? 'SIM' : 'NÃO' }}</q-badge
-            >
+              >{{ subreport.reportAvailable ? 'SIM' : 'NÃO' }}
+            </q-badge>
           </td>
           <td>
             <q-btn

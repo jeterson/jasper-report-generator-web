@@ -94,12 +94,12 @@
               Status do Arquivo de Relatório
               <strong>{{ report.fileName }}</strong>
               &nbsp;
-              <q-badge
-                :color="report.reportAvailable ? 'positive' : 'negative'"
-                >{{
-                  report.reportAvailable ? 'DISPONÍVEL' : 'INDISPONÍVEL'
-                }}</q-badge
-              >
+              <q-badge :color="report.reportAvailable ? 'positive' : 'negative'"
+                >{{ report.reportAvailable ? 'DISPONÍVEL' : 'INDISPONÍVEL' }}
+                <q-tooltip>
+                  {{ report.filePath }}
+                </q-tooltip>
+              </q-badge>
             </div>
           </div>
         </q-card-section>

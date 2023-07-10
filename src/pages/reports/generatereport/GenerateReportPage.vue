@@ -28,7 +28,13 @@
         </q-card-section>
         <q-separator vertical />
         <q-card-section class="col-xs-6">
-          <q-form @submit="emitReport()">
+          <div
+            class="message-no-report text-primary text-h6"
+            v-if="!selectedReport?.id"
+          >
+            <span>Selecione um relatório para visualizar o formulário</span>
+          </div>
+          <q-form v-else @submit="emitReport()">
             <q-card>
               <q-card-section>
                 <q-toolbar class="q-pa-none">
@@ -45,8 +51,16 @@
                     <q-tooltip> Configurar Relatório </q-tooltip>
                   </q-btn>
                 </q-toolbar>
-                <div class="text-caption">
+                <div v-if="selectedReport.reportAvailable" class="text-caption">
                   {{ selectedReport?.category.path }}
+                </div>
+                <div v-else>
+                  <q-badge color="negative">
+                    Relatório indisponível
+                    <q-tooltip>
+                      O arquivo de relatório não existe no diretório
+                    </q-tooltip>
+                  </q-badge>
                 </div>
               </q-card-section>
               <q-separator />
@@ -113,6 +127,7 @@
               <q-separator />
               <q-card-actions>
                 <q-btn
+                  :disable="!selectedReport.reportAvailable"
                   type="submit"
                   label="Emitir"
                   icon="print"
@@ -215,3 +230,11 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style>
+.message-no-report {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
